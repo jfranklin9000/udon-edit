@@ -2,37 +2,37 @@
 /=  index
   /^  octs
   /;  as-octs:mimes:html
-  /:  /===/app/%APPNAME%/index
+  /:  /===/app/udonedit/index
   /|  /html/
       /~  ~
   ==
 /=  tile-js
   /^  octs
   /;  as-octs:mimes:html
-  /:  /===/app/%APPNAME%/js/tile
+  /:  /===/app/udonedit/js/tile
   /|  /js/
       /~  ~
   ==
 /=  script
   /^  octs
   /;  as-octs:mimes:html
-  /:  /===/app/%APPNAME%/js/index
+  /:  /===/app/udonedit/js/index
   /|  /js/
       /~  ~
   ==
 /=  style
   /^  octs
   /;  as-octs:mimes:html
-  /:  /===/app/%APPNAME%/css/index
+  /:  /===/app/udonedit/css/index
   /|  /css/
       /~  ~
   ==
 :: This iterates over item in the img directory, takes their filenames
 :: at @tas (knots), takes the file as @ (binary) and runs it through the 
 :: png mark.
-/=  %APPNAME%-png
+/=  udonedit-png
   /^  (map knot @)
-  /:  /===/app/%APPNAME%/img  /_  /png/
+  /:  /===/app/udonedit/img  /_  /png/
 ::
 =,  format
 |%
@@ -63,14 +63,14 @@
   |=  old=(unit ~)
   ^-  (quip move _this)
   =/  launcha
-    [%launch-action [%%APPNAME% /%APPNAME%tile '/~%APPNAME%/js/tile.js']]
+    [%launch-action [%udonedit /udonedittile '/~udonedit/js/tile.js']]
   :_  this
-  :~  [ost.bol %connect / [~ /'~%APPNAME%'] %%APPNAME%]
-      [ost.bol %poke /%APPNAME% [our.bol %launch] launcha]
+  :~  [ost.bol %connect / [~ /'~udonedit'] %udonedit]
+      [ost.bol %poke /udonedit [our.bol %launch] launcha]
   ==
 ::
 ::
-++  peer-%APPNAME%tile
+++  peer-udonedittile
   |=  wir=wire
   ^-  (quip move _this)
   :_  this
@@ -85,7 +85,7 @@
   [~ this]
 ::
 ::
-::  +bound: lient tells us we successfully bound our server to the ~%APPNAME% url
+::  +bound: lient tells us we successfully bound our server to the ~udonedit url
 ::
 ++  bound
   |=  [wir=wire success=? binding=binding:eyre]
@@ -113,26 +113,26 @@
   ::
   ::  styling
   ::
-      [%'~%APPNAME%' %css %index ~]
+      [%'~udonedit' %css %index ~]
     :_  this
     [ost.bol %http-response (css-response:app style)]~
   ::
   ::  javascript
   ::
-      [%'~%APPNAME%' %js %index ~]
+      [%'~udonedit' %js %index ~]
     :_  this
     [ost.bol %http-response (js-response:app script)]~
   ::
   ::  images
   ::
-      [%'~%APPNAME%' %img *]
-    =/  img  (as-octs:mimes:html (~(got by %APPNAME%-png) `@ta`name))
+      [%'~udonedit' %img *]
+    =/  img  (as-octs:mimes:html (~(got by udonedit-png) `@ta`name))
     :_  this
     [ost.bol %http-response (png-response:app img)]~
   ::
   ::  inbox page
   ::
-     [%'~%APPNAME%' *]
+     [%'~udonedit' *]
     :_  this
     [ost.bol %http-response (html-response:app index)]~
   ==

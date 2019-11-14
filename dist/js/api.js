@@ -8,7 +8,7 @@ class UrbitApi {
     this.bindPaths = [];
   }
 
-  bind(path, method, ship = this.authTokens.ship, appl = "%APPNAME%", success, fail) {
+  bind(path, method, ship = this.authTokens.ship, appl = "udonedit", success, fail) {
     this.bindPaths = _.uniq([...this.bindPaths, path]);
 
     window.subscriptionId = window.urb.subscribe(ship, appl, path, 
@@ -29,8 +29,8 @@ class UrbitApi {
       });
   }
 
-  %APPNAME%(data) {
-    this.action("%APPNAME%", "json", data);
+  udonedit(data) {
+    this.action("udonedit", "json", data);
   }
 
   action(appl, mark, data) {
