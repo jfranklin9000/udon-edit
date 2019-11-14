@@ -19226,8 +19226,9 @@
                 return (
                   react.createElement('div', { className: "w-100 h-100 relative"  , style: { background: '#1a1a1a' }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 10}}
                     , react.createElement('a', { className: "w-100 h-100 db pa2 no-underline"    , href: "/~udonedit", __self: this, __source: {fileName: _jsxFileName, lineNumber: 11}}
-                      , react.createElement('p', { className: "gray label-regular b absolute"   , style: { left: 8, top: 4 }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 12}}, "udonedit")
-                      , react.createElement('p', { className: "white absolute" , style: { top: 25, left: 8 }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 13}}, "This is sample text for your full app tile."        )
+                      , react.createElement('p', { className: "gray label-regular b absolute"   , style: { top: 4, left: 8 }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 12}}, "Udonedit")
+                      , react.createElement('p', { className: "white relative" , style: { top:  90, 'text-align': 'center' }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 13}}, "Edit and preview udon"   )
+                      , react.createElement('p', { className: "gray  relative"  , style: { top: 100, 'text-align': 'center' }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 14}}, "Click tile to start"   )
                     )
                   )
                 );
