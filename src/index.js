@@ -5,6 +5,8 @@ import { api } from '/api';
 import { store } from '/store';
 import { subscription } from "/subscription";
 
+console.log('hello from udonedit');
+
 api.setAuthTokens({
   ship: window.ship
 });

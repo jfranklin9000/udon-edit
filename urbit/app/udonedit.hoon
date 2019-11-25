@@ -1,4 +1,4 @@
-/+  *server
+/+  *server, cram
 /=  index
   /^  octs
   /;  as-octs:mimes:html
@@ -51,41 +51,114 @@
       [%connect wire binding:eyre term]
       [%diff %json json]
   ==
+::
++$  state  $:  source=cord  ::  udon
+               object=cord  ::  html
+           ==
+::++  empty  `state`['' '']  ::  maybe ';>' for source?
+++  empty  `state`[';>\0a# header\0a\0afoo\0a' '<div><h1 id="header-">header </h1><p>foo </p></div>']
+::
 --
 ::
-|_  [bol=bowl:gall ~]
+|_  [bol=bowl:gall state]
 ::
 ++  this  .
+::
+++  init
+  |=  s=state
+  ~&  [%init s]
+  ^-  (quip move _this)
+  =/  launcha
+    [%launch-action [%udonedit /udonedittile '/~udonedit/js/tile.js']]
+  :_  this(source source.s, object object.s)
+  :~
+    [ost.bol %connect / [~ /'~udonedit'] %udonedit]
+    [ost.bol %poke /udonedit [our.bol %launch] launcha]
+  ==
 ::
 ::  +prep: set up the app
 ::
 ++  prep
-  |=  old=(unit ~)
+  ::  doesn't handle changes to +$state spec - XX
+  |=  old=(unit state)
+  ~&  [%prep old=`(unit state)`old]
+::  ~&  [%prep old=old]
+::  ~&  [%prep old]
   ^-  (quip move _this)
-  =/  launcha
-    [%launch-action [%udonedit /udonedittile '/~udonedit/js/tile.js']]
-  :_  this
-  :~  [ost.bol %connect / [~ /'~udonedit'] %udonedit]
-      [ost.bol %poke /udonedit [our.bol %launch] launcha]
-  ==
+  =/  s=state  empty
+  ?~  old                  ::  happens after |start
+    ~&  %old-state-none
+    (init s)
+::::  fix me - mint-vain - XX
+::::  ?~  u.old                ::  start from nothing
+::::    ~&  %old-state-sig
+::::    (init s)
+  (init s(source source.u.old, object object.u.old))
 ::
+++  prep-reset
+  |=  old=*
+  ~&  [%old old]
+  (init empty)
 ::
 ++  peer-udonedittile
   |=  wir=wire
+  ~&  [%peer-udonedittile wir]
   ^-  (quip move _this)
-  :_  this
-  [ost.bol %diff %json *json]~
+::  :_  this                      ::  original
+::  [ost.bol %diff %json *json]~  ::  original
+  [(send-state-diff ~) this]
 ::
+++  send-tile-diff  ::  rename
+  |=  jon=json
+  ~&  [%jon jon]
+  ^-  (list move)
+  %+  turn  (prey:pubsub:userlib /primary bol)  :: comment about ..tile
+  |=  [=bone ^]
+  [bone %diff %json jon]
+::
+++  send-state-diff
+  |=  ~
+  =/  map
+    :~  ['source' s+source]
+        ['object' s+object]
+    ==
+  ::  ~&  [%map map]
+  =/  json-map=json  o+(my map)
+  ::  ~&  [%json-map json-map]
+  %-  send-tile-diff
+  %-  pairs:enjs:format
+  [%state json-map]~
+::
+++  poke-json
+  |=  jon=json
+  ~&  [%poke-json jon]
+  ^-  (quip move _this)
+  =/  json-map  ((om:dejs:format same) jon)
+  ~&  [%json-map json-map]
+  =/  action    (so:dejs:format (~(got by json-map) %action))
+  ~&  [%action action]
+  ::
+  ?:  =(action 'preview')
+    =/  don=cord  (so:dejs:format (~(got by json-map) %source))
+    ~&  [%don don]
+    =.  source  don
+    ::  object XX
+    =.  object  (crip (en-xml:html elm:(static:cram (ream don))))
+    [(send-state-diff ~) this]
+  ::
+  ~&  [%unknown-action action]
+  [~ this]
+::
+::  XX - +peer-messages should be +peer-primary?
 ::  +peer-messages: subscribe to subset of messages and updates
-::
 ::
 ++  peer-primary
   |=  wir=wire
+  ~&  [%peer-primary wir]
   ^-  (quip move _this)
-  [~ this]
+  [(send-state-diff ~) this]
 ::
-::
-::  +bound: lient tells us we successfully bound our server to the ~udonedit url
+::  +bound: client tells us we successfully bound our server to the ~udonedit url
 ::
 ++  bound
   |=  [wir=wire success=? binding=binding:eyre]
@@ -97,6 +170,7 @@
 ++  poke-handle-http-request
   %-  (require-authorization:app ost.bol move this)
   |=  =inbound-request:eyre
+  ::  ~&  [%poke-handle-http-request inbound-request]
   ^-  (quip move _this)
   ::
   =+  request-line=(parse-request-line url.request.inbound-request)
