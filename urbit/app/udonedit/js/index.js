@@ -27409,6 +27409,117 @@
             }());
             });
 
+            const _jsxFileName = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/lib/icons/icon-home.js";
+            class IconHome extends react_1 {
+              render() {
+                return (
+                  react.createElement('img', { src: "/~launch/img/Home.png", width: 32, height: 32, __self: this, __source: {fileName: _jsxFileName, lineNumber: 6}} )
+                );
+              }
+            }
+
+            const _jsxFileName$1 = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/lib/icons/icon-spinner.js";
+            class IconSpinner extends react_1 {
+              render() {
+                return (
+                  react.createElement('div', { className: "spinner-pending", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 6}}) 
+                );
+              }
+            }
+
+            const _jsxFileName$2 = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/lib/header-bar.js";
+            class HeaderBar extends react_1 {
+              render() {
+                let spin = (this.props.spinner)
+                  ?  react.createElement('div', { className: "absolute",
+                       style: {width: 16, height: 16, top: 16, right: 16}, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 9}}
+                       , react.createElement(IconSpinner, {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 11}})
+                     )
+                  :  null;
+
+                return (
+                  react.createElement('div', { className: "bg-black w-100 justify-between"  ,
+                    style: { height: 48, padding: 8}, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 16}}
+                    , react.createElement('a', { className: "db",
+                      style: { background: '#1A1A1A',
+                        borderRadius: 16,
+                        width: 32,
+                        height: 32,
+                        top: 8 },
+                      href: "/", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 18}}
+                      , react.createElement(IconHome, {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 25}} )
+                    )
+                    , spin
+                  )
+                );
+              }
+            }
+
+            const _jsxFileName$3 = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/root.js";
+            class Root extends react_1 {
+
+              constructor(props) {
+                super(props);
+                // console.log('udoneditPrimary.constructor()', props);
+                this.state = store.state;
+                store.setStateHandler(this.setState.bind(this));
+              }
+
+              preview() {
+                // console.log('preview()', this.state);
+                // this.state.edited will be cleared elsewhere
+                api.action('udonedit', 'json',
+                  {action: 'preview', source: this.state.source});
+              }
+
+              source(event) {
+                // console.log('source()', event.target.value);
+                this.setState({source: event.target.value, edited: true});
+              }
+
+              render() {
+
+                // console.log('udoneditPrimary.render()', this.state);
+
+                // Preview button config
+                var previewColor = this.state.edited ? 'orangered' : 'lightgray';
+                var previewCurse = this.state.edited ? 'pointer' : 'inherit';
+                var previewAbled = this.state.edited ? '' : 'disabled';
+
+                return (
+                  react.createElement(BrowserRouter, {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 37}}
+                    , react.createElement(HeaderBar, {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 38}})
+                    , react.createElement(Route, { exact: true, path: "/~udonedit", render:  () => {
+                      return (
+                        react.createElement('div', { className: "cf w-100 absolute flex flex-column"    ,
+                             style: {height: 'calc(100% - 48px)' /* account for <HeaderBar/> */}, __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 41}}
+                          , react.createElement('div', { className: "w-100 bb" , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 43}}
+                            , react.createElement('h1', { className: "mt1 f2 pa2"  , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 44}}, "Udonedit"
+                              , react.createElement('button', { className: "mt3 fr f4"  ,
+                                      style: {color: previewColor, cursor: previewCurse},
+                                      disabled: previewAbled,
+                                      onClick: this.preview.bind(this), __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 45}}, "Preview"
+                              )
+                            )
+                          )
+                          , react.createElement('div', { className: "w-100 bt" , style: {flexGrow: '1'}, __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 52}}
+                            , react.createElement('div', { className: "flex flex-row h-100"  , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 53}}
+                              , react.createElement('textarea', { className: "br pa2 pre"  , style: {flexBasis: '50%', resize: 'none'},
+                                        value: this.state.source, onChange: this.source.bind(this), __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 54}}
+                              )
+                              , react.createElement('div', { className: "bl pa3" , style: {flexBasis: '50%'},
+                                   dangerouslySetInnerHTML: {__html: this.state.object}, __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 57}}
+                              )
+                            )
+                          )
+                        )
+                      )}, __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 39}}
+                    )
+                  )
+                )
+              }
+            }
+
             var lodash = createCommonjsModule(function (module, exports) {
             (function() {
 
@@ -44502,81 +44613,6 @@
             }.call(commonjsGlobal));
             });
 
-            const _jsxFileName = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/lib/icons/icon-home.js";
-            class IconHome extends react_1 {
-              render() {
-                return (
-                  react.createElement('img', { src: "/~launch/img/Home.png", width: 32, height: 32, __self: this, __source: {fileName: _jsxFileName, lineNumber: 6}} )
-                );
-              }
-            }
-
-            const _jsxFileName$1 = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/lib/icons/icon-spinner.js";
-            class IconSpinner extends react_1 {
-              render() {
-                return (
-                  react.createElement('div', { className: "spinner-pending", __self: this, __source: {fileName: _jsxFileName$1, lineNumber: 6}}) 
-                );
-              }
-            }
-
-            const _jsxFileName$2 = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/lib/header-bar.js";
-            class HeaderBar extends react_1 {
-              render() {
-                let spin = (this.props.spinner)
-                  ?  react.createElement('div', { className: "absolute",
-                       style: {width: 16, height: 16, top: 16, right: 16}, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 9}}
-                       , react.createElement(IconSpinner, {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 11}})
-                     )
-                  :  null;
-
-                return (
-                  react.createElement('div', { className: "bg-black w-100 justify-between"  ,
-                    style: { height: 48, padding: 8}, __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 16}}
-                    , react.createElement('a', { className: "db",
-                      style: { background: '#1A1A1A',
-                        borderRadius: 16,
-                        width: 32,
-                        height: 32,
-                        top: 8 },
-                      href: "/", __self: this, __source: {fileName: _jsxFileName$2, lineNumber: 18}}
-                      , react.createElement(IconHome, {__self: this, __source: {fileName: _jsxFileName$2, lineNumber: 25}} )
-                    )
-                    , spin
-                  )
-                );
-              }
-            }
-
-            const _jsxFileName$3 = "/Volumes/sensitive/URBIT/udon-edit/src/js/components/root.js";
-
-            class Root extends react_1 {
-              constructor(props) {
-                super(props);
-              }
-
-              render() {
-
-                return (
-                  react.createElement(BrowserRouter, {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 16}}
-                    , react.createElement('div', {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 17}}
-                    , react.createElement(HeaderBar, {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 18}})
-                    , react.createElement(Route, { exact: true, path: "/~udonedit", render:  () => {
-                      return (
-                        react.createElement('div', { className: "pa3 w-100" , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 21}}
-                          , react.createElement('h1', { className: "mt0 f2" , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 22}}, "udonedit")
-                          , react.createElement('p', { className: "lh-copy measure pt3"  , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 23}}, "Welcome to your Landscape application."    )
-                          , react.createElement('p', { className: "lh-copy measure pt3"  , __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 24}}, "To get started, edit "    , react.createElement('code', {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 24}}, "src/index.js"), " or "  , react.createElement('code', {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 24}}, "udonedit.hoon"), " and "  , react.createElement('code', {__self: this, __source: {fileName: _jsxFileName$3, lineNumber: 24}}, "|commit %home" ), " on your Urbit ship to see your changes."        )
-                          , react.createElement('a', { className: "black no-underline db body-large pt3"    , href: "https://urbit.org/docs", __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 25}}, "-> Read the docs"   )
-                        )
-                      )}, __self: this, __source: {fileName: _jsxFileName$3, lineNumber: 19}}
-                    )
-                    )
-                  )
-                )
-              }
-            }
-
             class UrbitApi {
               setAuthTokens(authTokens) {
                 this.authTokens = authTokens;
@@ -44620,51 +44656,30 @@
                 });
               }
             }
-            let api = new UrbitApi();
-            window.api = api;
+            let api$1 = new UrbitApi();
+            window.api = api$1;
 
-            class InitialReducer {
-                reduce(json, state) {
-                    let data = lodash.get(json, 'initial', false);
-                    if (data) {
-                        state.inbox = data.inbox;
-                    }
-                }
-            }
-
-            class ConfigReducer {
-                reduce(json, state) {
-                    let data = lodash.get(json, 'udonedit', false);
-                    if (data) {
-                        state.inbox = data.inbox;
-                    }
-                }
-            }
-
-            class UpdateReducer {
-                reduce(json, state) {
-                    let data = lodash.get(json, 'update', false);
-                    if (data) {
-                        this.reduceInbox(lodash.get(data, 'inbox', false), state);
-                    }
-                }
-
-                reduceInbox(inbox, state) {
-                    if (inbox) {
-                        state.inbox = inbox;
-                    }
-                }
-            }
+            /*
+            import { InitialReducer } from '/reducers/initial';
+            import { ConfigReducer } from '/reducers/config';
+            import { UpdateReducer } from '/reducers/update';
+            */
 
             class Store {
                 constructor() {
+                    // console.log('Store constructor');
+
                     this.state = {
-                        inbox: {}
+                        source: '',    // udon
+                        object: '',    // html
+                        edited: false  // source and object are consistent
                     };
 
+            /*
                     this.initialReducer = new InitialReducer();
                     this.configReducer = new ConfigReducer();
                     this.updateReducer = new UpdateReducer();
+            */
                     this.setState = () => { };
                 }
 
@@ -44675,17 +44690,21 @@
                 handleEvent(data) {
                     let json = data.data;
 
-                    console.log(json);
+                    // console.log('Store handleEvent', json);
+            /*
                     this.initialReducer.reduce(json, this.state);
                     this.configReducer.reduce(json, this.state);
                     this.updateReducer.reduce(json, this.state);
-
+            */
+                    this.state.source = json.state.source;
+                    this.state.object = json.state.object;
+                    this.state.edited = false;
                     this.setState(this.state);
                 }
             }
 
-            let store = new Store();
-            window.store = store;
+            let store$1 = new Store();
+            window.store = store$1;
 
             var lookup = [];
             var revLookup = [];
@@ -53180,7 +53199,7 @@ lyrtesmudnytbyrsenwegfyrmurtelreptegpecnelnevfes\
 
             class Subscription {
               start() {
-                if (api.authTokens) {
+                if (api$1.authTokens) {
                   this.initializeudonedit();
                 } else {
                   console.error("~~~ ERROR: Must set api.authTokens before operation ~~~");
@@ -53188,18 +53207,18 @@ lyrtesmudnytbyrsenwegfyrmurtelreptegpecnelnevfes\
               }
 
               initializeudonedit() {
-                api.bind('/primary', 'PUT', api.authTokens.ship, 'udonedit',
+                api$1.bind('/primary', 'PUT', api$1.authTokens.ship, 'udonedit',
                   this.handleEvent.bind(this),
                   this.handleError.bind(this));
               }
 
               handleEvent(diff) {
-                store.handleEvent(diff);
+                store$1.handleEvent(diff);
               }
 
               handleError(err) {
                 console.error(err);
-                api.bind('/primary', 'PUT', api.authTokens.ship, 'udonedit',
+                api$1.bind('/primary', 'PUT', api$1.authTokens.ship, 'udonedit',
                   this.handleEvent.bind(this),
                   this.handleError.bind(this));
               }
@@ -53208,14 +53227,16 @@ lyrtesmudnytbyrsenwegfyrmurtelreptegpecnelnevfes\
             let subscription = new Subscription();
 
             const _jsxFileName$4 = "/Volumes/sensitive/URBIT/udon-edit/src/index.js";
-            api.setAuthTokens({
+            console.log('hello from udonedit');
+
+            api$1.setAuthTokens({
               ship: window.ship
             });
 
             subscription.start();
 
             reactDom.render((
-              react.createElement(Root, {__self: undefined, __source: {fileName: _jsxFileName$4, lineNumber: 15}} )
+              react.createElement(Root, {__self: undefined, __source: {fileName: _jsxFileName$4, lineNumber: 17}} )
             ), document.querySelectorAll("#root")[0]);
 
 }));

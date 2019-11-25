@@ -6,7 +6,7 @@ import { UpdateReducer } from '/reducers/update';
 
 class Store {
     constructor() {
-        console.log('Store constructor');
+        // console.log('Store constructor');
 
         this.state = {
             source: '',    // udon
@@ -29,7 +29,7 @@ class Store {
     handleEvent(data) {
         let json = data.data;
 
-        console.log('Store handleEvent', json);
+        // console.log('Store handleEvent', json);
 /*
         this.initialReducer.reduce(json, this.state);
         this.configReducer.reduce(json, this.state);

@@ -55,8 +55,11 @@
 +$  state  $:  source=cord  ::  udon
                object=cord  ::  html
            ==
-::++  empty  `state`['' '']  ::  maybe ';>' for source?
-++  empty  `state`[';>\0a# header\0a\0afoo\0a' '<div><h1 id="header-">header </h1><p>foo </p></div>']
+::  ++  empty  `state`['' '']
+::  hint to the new user on how to use..
+++  empty  ^-  state  :-
+      '# header\0a\0asome text\0a'
+      '<div><h1 id="header-">header </h1><p>some text </p></div>'
 ::
 --
 ::
@@ -66,7 +69,7 @@
 ::
 ++  init
   |=  s=state
-  ~&  [%init s]
+  ::  ~&  [%init s]
   ^-  (quip move _this)
   =/  launcha
     [%launch-action [%udonedit /udonedittile '/~udonedit/js/tile.js']]
@@ -82,37 +85,34 @@
   ::  doesn't handle changes to +$state spec - XX
   |=  old=(unit state)
   ~&  [%prep old=`(unit state)`old]
-::  ~&  [%prep old=old]
-::  ~&  [%prep old]
   ^-  (quip move _this)
   =/  s=state  empty
   ?~  old                  ::  happens after |start
     ~&  %old-state-none
     (init s)
-::::  fix me - mint-vain - XX
-::::  ?~  u.old                ::  start from nothing
-::::    ~&  %old-state-sig
-::::    (init s)
+  ::  fix me - mint-vain - XX
+  ::  no, it makes sense
+  ::  ?~  u.old                ::  start from nothing
+  ::    ~&  %old-state-sig
+  ::    (init s)
   (init s(source source.u.old, object object.u.old))
 ::
-++  prep-reset
+++  prep-reset  ::  for development
   |=  old=*
   ~&  [%old old]
   (init empty)
 ::
-++  peer-udonedittile
+++  peer-udonedittile  ::  yuck, i would prefer peer-udonedit-tile
   |=  wir=wire
   ~&  [%peer-udonedittile wir]
   ^-  (quip move _this)
-::  :_  this                      ::  original
-::  [ost.bol %diff %json *json]~  ::  original
   [(send-state-diff ~) this]
 ::
-++  send-tile-diff  ::  rename
+++  send-tile-diff  ::  rename?
   |=  jon=json
-  ~&  [%jon jon]
+  ::  ~&  [%jon jon]
   ^-  (list move)
-  %+  turn  (prey:pubsub:userlib /primary bol)  :: comment about ..tile
+  %+  turn  (prey:pubsub:userlib /primary bol)
   |=  [=bone ^]
   [bone %diff %json jon]
 ::
@@ -131,25 +131,29 @@
 ::
 ++  poke-json
   |=  jon=json
-  ~&  [%poke-json jon]
+  ::  ~&  [%poke-json jon]
   ^-  (quip move _this)
   =/  json-map  ((om:dejs:format same) jon)
-  ~&  [%json-map json-map]
   =/  action    (so:dejs:format (~(got by json-map) %action))
-  ~&  [%action action]
   ::
   ?:  =(action 'preview')
     =/  don=cord  (so:dejs:format (~(got by json-map) %source))
-    ~&  [%don don]
+    ::  ~&  [%don don]
+    ::  we assume don doesn't have front matter or ;> - XX
     =.  source  don
-    ::  object XX
+    ::  +ream chokes on '' and ' ' and probably more
+    ::  at least handle '' - XX
+    ?:  =(don '')
+      =.  object  ''
+      [(send-state-diff ~) this]
+    ::  add leading ';>\0a' and trailing '\0a' - XX
+    =.  don     (crip :(weld ";>\0a" (trip don) "\0a"))
     =.  object  (crip (en-xml:html elm:(static:cram (ream don))))
     [(send-state-diff ~) this]
   ::
   ~&  [%unknown-action action]
   [~ this]
 ::
-::  XX - +peer-messages should be +peer-primary?
 ::  +peer-messages: subscribe to subset of messages and updates
 ::
 ++  peer-primary

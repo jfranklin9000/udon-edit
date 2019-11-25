@@ -40,21 +40,21 @@ export class Root extends Component {
           return (
             <div className="cf w-100 absolute flex flex-column"
                  style={{height: 'calc(100% - 48px)' /* account for <HeaderBar/> */}}>
-              <div class="w-100 bb">
+              <div className="w-100 bb">
                 <h1 className="mt1 f2 pa2">Udonedit
-                  <button className="mt2 fr f4"
+                  <button className="mt3 fr f4"
                           style={{color: previewColor, cursor: previewCurse}}
                           disabled={previewAbled}
                           onClick={this.preview.bind(this)}>Preview
                   </button>
                 </h1>
               </div>
-              <div class="w-100 bt" style={{flexGrow: '1'}}>
-                <div class="flex flex-row h-100">
-                  <textarea class="br pa2 pre" style={{flexBasis: '50%', resize: 'none'}}
+              <div className="w-100 bt" style={{flexGrow: '1'}}>
+                <div className="flex flex-row h-100">
+                  <textarea className="br pa2 pre" style={{flexBasis: '50%', resize: 'none'}}
                             value={this.state.source} onChange={this.source.bind(this)}>
                   </textarea>
-                  <div class="bl pa3" style={{flexBasis: '50%'}}
+                  <div className="bl pa3" style={{flexBasis: '50%'}}
                        dangerouslySetInnerHTML={{__html: this.state.object}}>
                   </div>
                 </div>

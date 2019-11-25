@@ -5,6 +5,8 @@ import { api } from '/api';
 import { store } from '/store';
 import { subscription } from "/subscription";
 
+console.log('hello from udonedit');
+
 api.setAuthTokens({
   ship: window.ship
 });
@@ -12,5 +14,5 @@ api.setAuthTokens({
 subscription.start();
 
 ReactDOM.render((
-  React.createElement(Root, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 15}} )
+  React.createElement(Root, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 17}} )
 ), document.querySelectorAll("#root")[0]);
