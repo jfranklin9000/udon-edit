@@ -55,12 +55,12 @@
 +$  state  $:  source=cord  ::  udon
                object=cord  ::  html
            ==
-::  ++  empty  `state`['' '']
-::  hint to the new user on how to use..
-++  empty  ^-  state  :-
-      '# header\0a\0asome text\0a'
-      '<div><h1 id="header-">header </h1><p>some text </p></div>'
 ::
+++  empty  ::  `state`['' '']
+  ::  hint to new user on how to use..
+  ^-  state
+  :-  '# header\0a\0asome text\0a'
+      '<div><h1 id="header-">header </h1><p>some text </p></div>'
 --
 ::
 |_  [bol=bowl:gall state]
@@ -102,13 +102,13 @@
   ~&  [%old old]
   (init empty)
 ::
-++  peer-udonedittile  ::  yuck, i would prefer peer-udonedit-tile
+++  peer-udonedittile
   |=  wir=wire
   ~&  [%peer-udonedittile wir]
   ^-  (quip move _this)
   [(send-state-diff ~) this]
 ::
-++  send-tile-diff  ::  rename?
+++  send-tile-diff
   |=  jon=json
   ::  ~&  [%jon jon]
   ^-  (list move)

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
-//import classnames from 'classnames';
-import { HeaderBar } from "./lib/header-bar.js"
+import { BrowserRouter, Route } from 'react-router-dom';
+import { HeaderBar } from './lib/header-bar.js'
+
 
 export class Root extends Component {
-
   constructor(props) {
     super(props);
     // console.log('udoneditPrimary.constructor()', props);

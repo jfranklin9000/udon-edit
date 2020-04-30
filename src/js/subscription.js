@@ -1,19 +1,16 @@
 import { api } from '/api';
 import { store } from '/store';
 
-import urbitOb from 'urbit-ob';
-
-
 export class Subscription {
   start() {
     if (api.authTokens) {
-      this.initializeudonedit();
+      this.initializeUdonedit();
     } else {
       console.error("~~~ ERROR: Must set api.authTokens before operation ~~~");
     }
   }
 
-  initializeudonedit() {
+  initializeUdonedit() {
     api.bind('/primary', 'PUT', api.authTokens.ship, 'udonedit',
       this.handleEvent.bind(this),
       this.handleError.bind(this));
